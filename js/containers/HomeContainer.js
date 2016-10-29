@@ -7,12 +7,13 @@ import {
     TouchableHighlight,
     Image
 } from 'react-native';
-import { Examples } from '@shoutem/ui';
+import Home from '../components/Home';
+
 
 export default class HomeContainer extends Component {
     render() {
         return (
-            <Examples/>
+            <Home/>
         );
     }
 }
