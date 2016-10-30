@@ -5,28 +5,29 @@ import {
     Text,
     View
 } from 'react-native';
-
 import  Router  from 'react-native-simple-router';
-import HomeContainer from './js/containers/HomeContainer'
+import LoginContainer from './js/containers/LoginContainer'
 
 export default class heatinUp extends React.Component {
   render() {
     return (
         <Router
-            firstRoute={home}
+            firstRoute={login}
+            headerStyle={styles.header}
+            titleStyle={styles.title}
         />
     );
   }
 }
 
-const home = {
-  name: 'Home',
-  component: HomeContainer
+const login = {
+  name: 'Login',
+  component: LoginContainer
 };
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#7E57C2',
+    backgroundColor: '#5cafec'
   },
   title: {
     alignSelf: 'center'
