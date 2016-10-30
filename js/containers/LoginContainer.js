@@ -8,6 +8,7 @@ import {
     Image
 } from 'react-native';
 import Login from '../components/Login';
+import HomeContainer from '../containers/HomeContainer';
 
 
 export default class LoginContainer extends Component {
@@ -18,10 +19,21 @@ export default class LoginContainer extends Component {
         };
         this.track = this.track.bind(this);
         this.setUsername = this.setUsername.bind(this);
+        this.nextPage = this.nextPage.bind(this);
     }
 
     track(text) {
 
+    }
+
+    nextPage() {
+        this.props.toRoute({
+            name: "Home",
+            component: HomeContainer,
+            passProps: {
+                username: this.state.username
+            }
+        });
     }
 
     setUsername(username) {
@@ -31,8 +43,8 @@ export default class LoginContainer extends Component {
     render() {
         return <Login
             styles={styles}
-            username={this.state.username}
             setUsername={this.setUsername}
+            nextPage={this.nextPage}
         />
     }
 }
