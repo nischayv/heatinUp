@@ -8,14 +8,10 @@ import {
 } from 'react-native';
 import { Button } from 'native-base';
 
-const Login = ({styles, setUsername, nextPage}) => {
+const Login = ({styles, usernameError, setUsername, nextPage}) => {
     return (
-        <View style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}>
+        <View style={styles.mainView}>
+            <Text style={{width: 300, textAlign: 'center'}}>{usernameError}</Text>
             <TextInput
                 style={styles.textInput}
                 placeholder="Type your username!"
