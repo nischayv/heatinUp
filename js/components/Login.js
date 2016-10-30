@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { Button } from 'native-base';
 
-const Login = () => {
+const Login = ({styles, username, setUsername}) => {
     return (
         <View style={{
             flex: 1,
@@ -18,24 +18,16 @@ const Login = () => {
             <TextInput
                 style={styles.textInput}
                 placeholder="Type your username!"
+                onChangeText={(text) => setUsername(text)}
             />
             <View style={{width: 300, paddingTop: 10}}>
                 <Button block large style={styles.button}>Begin Tracking</Button>
             </View>
+            <View style={{width: 300, paddingTop: 10}}>
+                <Text>{username}</Text>
+            </View>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    button: {
-        backgroundColor: '#5cafec'
-    },
-    textInput: {
-        height: 60,
-        width: 300,
-        textAlign: 'center',
-        fontSize: 22
-    }
-});
 
 export default Login;
