@@ -4,11 +4,17 @@ import {
     Text,
     View
 } from 'react-native';
+import { Button } from 'native-base';
 
-const Home = () => {
+const Home = ({styles, username, tracking, track, buttonText}) => {
     return (
-        <View style={{flex: 1}}>
-           <Text>You are now being tracked by the NSA!</Text>
+        <View style={styles.mainView}>
+            {
+                tracking ? <Text style={styles.text}>{username}, you are now being tracked by the NSA!</Text> : null
+            }
+            <View style={{width: 300, paddingTop: 10}}>
+                <Button block large style={styles.button} onPress={track}>{buttonText}</Button>
+            </View>
         </View>
     );
 };

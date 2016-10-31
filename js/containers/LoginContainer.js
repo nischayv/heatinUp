@@ -54,6 +54,12 @@ export default class LoginContainer extends Component {
 }
 
 const styles = StyleSheet.create({
+    mainView: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     button: {
         backgroundColor: '#5cafec'
     },
@@ -63,10 +69,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 22
     },
-    mainView: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
+    text: {
+        height: 60,
+        width: 300,
+        textAlign: 'center',
+        fontSize: 22,
+        color: 'red'
     }
 });

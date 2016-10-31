@@ -6,7 +6,8 @@ import {
     View
 } from 'react-native';
 import  Router  from 'react-native-simple-router';
-import LoginContainer from './js/containers/LoginContainer'
+import LoginContainer from './js/containers/LoginContainer';
+import BackButton from './js/components/BackButton';
 
 export default class heatinUp extends React.Component {
   render() {
@@ -15,13 +16,14 @@ export default class heatinUp extends React.Component {
             firstRoute={login}
             headerStyle={styles.header}
             titleStyle={styles.title}
+            backButtonComponent={BackButton}
         />
     );
   }
 }
 
 const login = {
-  name: 'Login',
+  name: 'HeatinUp',
   component: LoginContainer
 };
 
@@ -30,7 +32,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#5cafec'
   },
   title: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+    paddingTop: 3
   }
 });
 
