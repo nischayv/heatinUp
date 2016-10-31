@@ -15,23 +15,31 @@ export default class HomeContainer extends Component {
         super();
         this.state = {
             tracking: false,
-            buttonText: 'Begin Tracking'
-        };
+            buttonText: 'Begin Tracking',
+            locationService: 0
+        }
         this.track = this.track.bind(this);
     }
 
     track() {
         if(!this.state.tracking) {
             this.setState({tracking: true, buttonText: 'Stop Tracking'});
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    alert(JSON.stringify(position));
-                },
-                (error) => alert(JSON.stringify(error)),
-                {enableHighAccuracy: true}
-            );
+            this.setState({locationService: setInterval(
+                () => {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            //Need to do the post here
+                            alert(JSON.stringify(position));
+                        },
+                        (error) => alert(JSON.stringify(error)),
+                        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+                    );
+            },5000)
+        })
         } else {
             this.setState({tracking: false, buttonText: 'Start Tracking'});
+            //This doesn't seem to work. Need to be fixed.
+            clearInterval(this.state.locationService);
         }
     }
 
