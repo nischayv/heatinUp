@@ -23,6 +23,13 @@ export default class HomeContainer extends Component {
     track() {
         if(!this.state.tracking) {
             this.setState({tracking: true, buttonText: 'Stop Tracking'});
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    alert(JSON.stringify(position));
+                },
+                (error) => alert(JSON.stringify(error)),
+                {enableHighAccuracy: true}
+            );
         } else {
             this.setState({tracking: false, buttonText: 'Start Tracking'});
         }
