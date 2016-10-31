@@ -28,8 +28,25 @@ export default class HomeContainer extends Component {
                 () => {
                     navigator.geolocation.getCurrentPosition(
                         (position) => {
-                            //Need to do the post here
-                            alert(JSON.stringify(position));
+                            fetch('https://mywebsite.com/api/addNewLocation', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    username: this.props.username,
+                                    longitude: position.coords.longitude,
+                                    latitude: position.coords.latitude
+                                })
+                            })
+                                .then((response) => response.json())
+                                .then((responseJson) => {
+                                    alert(responseJson);
+                                })
+                                .catch((error) => {
+                                    alert(error);
+                                });
                         },
                         (error) => alert(JSON.stringify(error)),
                         {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
