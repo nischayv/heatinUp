@@ -28,7 +28,7 @@ export default class HomeContainer extends Component {
                 () => {
                     navigator.geolocation.getCurrentPosition(
                         (position) => {
-                            fetch('https://mywebsite.com/api/addNewLocation', {
+                            fetch('https://heatinup.herokuapp.com/api/addNewLocation', {
                                 method: 'POST',
                                 headers: {
                                     'Accept': 'application/json',
@@ -40,16 +40,12 @@ export default class HomeContainer extends Component {
                                     latitude: position.coords.latitude
                                 })
                             })
-                                .then((response) => response.json())
-                                .then((responseJson) => {
-                                    alert(responseJson);
-                                })
                                 .catch((error) => {
                                     alert(error);
                                 });
                         },
                         (error) => alert(JSON.stringify(error)),
-                        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+                        {enableHighAccuracy: false, timeout: 20000, maximumAge: 1000}
                     );
                 }, 5000);
             this.setState({locationService: watchID});
