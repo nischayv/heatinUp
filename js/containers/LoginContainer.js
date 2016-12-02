@@ -5,7 +5,8 @@ import {
     Text,
     View,
     TouchableHighlight,
-    Image
+    Image,
+    AsyncStorage
 } from 'react-native';
 import Login from '../components/Login';
 import HomeContainer from '../containers/HomeContainer';
@@ -17,8 +18,7 @@ export default class LoginContainer extends Component {
         this.state = {
             username: '',
             usernameError: '',
-            password: '',
-            passwordError: ''
+            password: ''
         };
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
@@ -28,13 +28,32 @@ export default class LoginContainer extends Component {
 
     login() {
         if(this.state.username && this.state.password) {
-            this.props.toRoute({
-                name: "Home",
-                component: HomeContainer,
-                passProps: {
-                    username: this.state.username
-                }
-            });
+            fetch('http://localhost:3000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: this.state.username,
+                    password: this.state.password
+                })
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    alert(responseJson);
+                    this.props.toRoute({
+                        name: "Home",
+                        component: HomeContainer,
+                        passProps: {
+                            username: this.state.username
+                        }
+                    });
+                })
+                .catch((error) => {
+                    alert(error);
+                    this.setState({usernameError: 'Account does not exist!'})
+                });
         } else {
             this.setState({usernameError: 'Please enter username and password'});
         }
@@ -42,15 +61,42 @@ export default class LoginContainer extends Component {
 
     register() {
         if(this.state.username && this.state.password) {
-            this.props.toRoute({
-                name: "Home",
-                component: HomeContainer,
-                passProps: {
-                    username: this.state.username
-                }
-            });
+            fetch('http://localhost:3000/api/register', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: this.state.username,
+                    password: this.state.password
+                })
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    alert(responseJson);
+                    this.props.toRoute({
+                        name: "Home",
+                        component: HomeContainer,
+                        passProps: {
+                            username: this.state.username
+                        }
+                    });
+                })
+                .catch((error) => {
+                    alert(error);
+                    this.setState({usernameError: 'Account creation failed. Please try again.'})
+                });
         } else {
             this.setState({usernameError: 'Please enter username and password'});
+        }
+    }
+
+    async onValueChange(item, selectedValue) {
+        try {
+            await AsyncStorage.setItem(item, selectedValue);
+        } catch (error) {
+            console.log('AsyncStorage error: ' + error.message);
         }
     }
 
@@ -62,8 +108,8 @@ export default class LoginContainer extends Component {
     }
 
     setPassword(password) {
-        if(this.state.passwordError) {
-            this.setState({passwordError: ''});
+        if(this.state.usernameError) {
+            this.setState({usernameError: ''});
         }
         this.setState({password});
     }
