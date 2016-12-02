@@ -16,14 +16,18 @@ export default class LoginContainer extends Component {
         super();
         this.state = {
             username: '',
-            usernameError: ''
+            usernameError: '',
+            password: '',
+            passwordError: ''
         };
         this.setUsername = this.setUsername.bind(this);
-        this.nextPage = this.nextPage.bind(this);
+        this.setPassword = this.setPassword.bind(this);
+        this.login = this.login.bind(this);
+        this.register = this.register.bind(this);
     }
 
-    nextPage() {
-        if(this.state.username) {
+    login() {
+        if(this.state.username && this.state.password) {
             this.props.toRoute({
                 name: "Home",
                 component: HomeContainer,
@@ -32,7 +36,21 @@ export default class LoginContainer extends Component {
                 }
             });
         } else {
-            this.setState({usernameError: 'Please enter a username'});
+            this.setState({usernameError: 'Please enter username and password'});
+        }
+    }
+
+    register() {
+        if(this.state.username && this.state.password) {
+            this.props.toRoute({
+                name: "Home",
+                component: HomeContainer,
+                passProps: {
+                    username: this.state.username
+                }
+            });
+        } else {
+            this.setState({usernameError: 'Please enter username and password'});
         }
     }
 
@@ -43,12 +61,21 @@ export default class LoginContainer extends Component {
         this.setState({username});
     }
 
+    setPassword(password) {
+        if(this.state.passwordError) {
+            this.setState({passwordError: ''});
+        }
+        this.setState({password});
+    }
+
     render() {
         return <Login
             styles={styles}
             usernameError={this.state.usernameError}
             setUsername={this.setUsername}
-            nextPage={this.nextPage}
+            setPassword={this.setPassword}
+            login={this.login}
+            register={this.register}
         />
     }
 }
