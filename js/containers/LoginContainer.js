@@ -28,7 +28,7 @@ export default class LoginContainer extends Component {
 
     login() {
         if(this.state.username && this.state.password) {
-            fetch('http://localhost:3000/api/login', {
+            fetch('https://heatinup.herokuapp.com/api/login', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -42,6 +42,7 @@ export default class LoginContainer extends Component {
                 .then((response) => response.json())
                 .then((responseJson) => {
                     alert(responseJson);
+                    this.saveToken('json-token', responseJson.token);
                     this.props.toRoute({
                         name: "Home",
                         component: HomeContainer,
@@ -61,7 +62,7 @@ export default class LoginContainer extends Component {
 
     register() {
         if(this.state.username && this.state.password) {
-            fetch('http://localhost:3000/api/register', {
+            fetch('https://heatinup.herokuapp.com/api/register', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -75,6 +76,7 @@ export default class LoginContainer extends Component {
                 .then((response) => response.json())
                 .then((responseJson) => {
                     alert(responseJson);
+                    this.saveToken('json-token', responseJson.token);
                     this.props.toRoute({
                         name: "Home",
                         component: HomeContainer,
@@ -92,13 +94,13 @@ export default class LoginContainer extends Component {
         }
     }
 
-    async onValueChange(item, selectedValue) {
+    saveToken = async (item, selectedValue) => {
         try {
             await AsyncStorage.setItem(item, selectedValue);
         } catch (error) {
             console.log('AsyncStorage error: ' + error.message);
         }
-    }
+    };
 
     setUsername(username) {
         if(this.state.usernameError) {

@@ -3,20 +3,37 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    View
+    View,
+    AsyncStorage
 } from 'react-native';
 import  Router  from 'react-native-simple-router';
 import LoginContainer from './js/containers/LoginContainer';
 import BackButton from './js/components/BackButton';
 
 export default class heatinUp extends React.Component {
-  render() {
+
+    constructor() {
+        super();
+
+        this.logout = this.logout.bind(this);
+    }
+
+    logout = async () => {
+        try {
+            await AsyncStorage.removeItem('json-token');
+        } catch (error) {
+            console.log('AsyncStorage error: ' + error.message);
+        }
+    };
+
+    render() {
     return (
         <Router
             firstRoute={login}
             headerStyle={styles.header}
             titleStyle={styles.title}
             backButtonComponent={BackButton}
+            backButtonProps={this.logout}
         />
     );
   }
