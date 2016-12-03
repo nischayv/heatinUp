@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
-    View,
-    AsyncStorage
+    View
 } from 'react-native';
 
-const BackButton = (logout) => {
+const BackButton = () => {
     return (
         <Text
             style={{
@@ -15,9 +14,7 @@ const BackButton = (logout) => {
                 fontWeight: 'bold',
                 paddingLeft: 5,
                 paddingTop: 3
-            }}
-            onPress={logout}
-        >Logout</Text>
+            }}>Back</Text>
     );
 };
 

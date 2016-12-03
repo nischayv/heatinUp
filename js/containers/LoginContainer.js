@@ -41,8 +41,10 @@ export default class LoginContainer extends Component {
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    alert(responseJson);
-                    this.saveToken('json-token', responseJson.token);
+                    if(responseJson.token === undefined) {
+                        return Promise.reject(responseJson.message);
+                    }
+                    this.saveToken('json-token', this.state.username);
                     this.props.toRoute({
                         name: "Home",
                         component: HomeContainer,
@@ -52,8 +54,7 @@ export default class LoginContainer extends Component {
                     });
                 })
                 .catch((error) => {
-                    alert(error);
-                    this.setState({usernameError: 'Account does not exist!'})
+                    alert('Login failed:' +  error);
                 });
         } else {
             this.setState({usernameError: 'Please enter username and password'});
@@ -75,8 +76,10 @@ export default class LoginContainer extends Component {
             })
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    alert(responseJson);
-                    this.saveToken('json-token', responseJson.token);
+                    if(responseJson.token === undefined) {
+                        return Promise.reject(responseJson.message);
+                    }
+                    this.saveToken('json-token', this.state.username);
                     this.props.toRoute({
                         name: "Home",
                         component: HomeContainer,
@@ -86,8 +89,7 @@ export default class LoginContainer extends Component {
                     });
                 })
                 .catch((error) => {
-                    alert(error);
-                    this.setState({usernameError: 'Account creation failed. Please try again.'})
+                    alert('Account creation failed. Please try again:'+  error);
                 });
         } else {
             this.setState({usernameError: 'Please enter username and password'});
@@ -97,6 +99,15 @@ export default class LoginContainer extends Component {
     saveToken = async (item, selectedValue) => {
         try {
             await AsyncStorage.setItem(item, selectedValue);
+        } catch (error) {
+            console.log('AsyncStorage error: ' + error.message);
+        }
+    };
+
+    getToken = async () => {
+        try {
+            return await AsyncStorage.getItem('json-token');
+
         } catch (error) {
             console.log('AsyncStorage error: ' + error.message);
         }
@@ -114,6 +125,22 @@ export default class LoginContainer extends Component {
             this.setState({usernameError: ''});
         }
         this.setState({password});
+    }
+
+    componentWillMount() {
+        this.getToken()
+            .then(token => {
+                alert(token);
+                if(token !== null) {
+                    this.props.toRoute({
+                        name: "Home",
+                        component: HomeContainer,
+                        passProps: {
+                            username: token
+                        }
+                    });
+                }
+            });
     }
 
     render() {
