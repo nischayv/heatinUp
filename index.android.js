@@ -10,7 +10,6 @@ import  Router  from 'react-native-simple-router';
 import LoginContainer from './js/containers/LoginContainer';
 import LogoutButton from './js/components/LogoutButton';
 import BackButton from './js/components/BackButton';
-// Fix logout style and get rid of back button
 
 export default class heatinUp extends React.Component {
 
