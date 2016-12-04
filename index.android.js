@@ -10,7 +10,7 @@ import  Router  from 'react-native-simple-router';
 import LoginContainer from './js/containers/LoginContainer';
 import LogoutButton from './js/components/LogoutButton';
 import BackButton from './js/components/BackButton';
-// If start up and token exists - navigate to home page - in login container before compenent mounts
+// Fix logout style and get rid of back button
 
 export default class heatinUp extends React.Component {
 
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   title: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     paddingTop: 3
   }

@@ -10,11 +10,11 @@ const BackButton = () => {
         <Text
             style={{
                 color: 'white',
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: 'bold',
                 paddingLeft: 5,
                 paddingTop: 3
-            }}>Back</Text>
+            }}></Text>
     );
 };
 

@@ -16,7 +16,6 @@ export default class LogoutButton extends Component  {
     logout = async () => {
         try {
             await AsyncStorage.removeItem('json-token');
-            alert('deleted token');
             this.props.toBack();
         } catch (error) {
             console.log('AsyncStorage error: ' + error.message);
@@ -28,13 +27,12 @@ export default class LogoutButton extends Component  {
             <TouchableHighlight underlayColor="transparent" onPress={this.logout}>
                 <Text
                     style={{
-                        width: 200,
                         color: 'white',
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: 'bold',
                         paddingLeft: 5,
                         paddingTop: 3
-                    }}>Logout</Text>
+                    }}>Back</Text>
             </TouchableHighlight>
         );
     }
