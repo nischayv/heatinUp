@@ -10,8 +10,17 @@ import  Router  from 'react-native-simple-router';
 import LoginContainer from './js/containers/LoginContainer';
 import LogoutButton from './js/components/LogoutButton';
 import BackButton from './js/components/BackButton';
+import PushNotification from 'react-native-push-notification';
 
 export default class heatinUp extends React.Component {
+
+    componentDidMount() {
+        PushNotification.configure({
+            onNotification: function(notification) {
+                console.log( 'NOTIFICATION:', notification );
+            }
+        });
+    }
 
     render() {
         return (

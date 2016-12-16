@@ -130,7 +130,6 @@ export default class LoginContainer extends Component {
     componentWillMount() {
         this.getToken()
             .then(token => {
-                alert(token);
                 if(token !== null) {
                     this.props.toRoute({
                         name: "Home",

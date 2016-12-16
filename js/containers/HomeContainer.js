@@ -8,7 +8,7 @@ import {
     Image
 } from 'react-native';
 import Home from '../components/Home';
-
+import PushNotification from 'react-native-push-notification';
 
 export default class HomeContainer extends Component {
     constructor() {
@@ -40,6 +40,19 @@ export default class HomeContainer extends Component {
                                     latitude: position.coords.latitude
                                 })
                             })
+                                .then((response) => response.json())
+                                .then((responseJson) => {
+                                    let msg = JSON.stringify(responseJson.isSameLocationTooLong) + JSON.stringify(responseJson.inSameSpot) + JSON.stringify(responseJson.isOutsideArea);
+                                    msg = msg.replace(/['"]+/g, '');
+                                    if(msg) {
+                                        let date = new Date(Date.now());
+                                        PushNotification.localNotificationSchedule({
+                                            id: '1',
+                                            message: msg,
+                                            date
+                                        });
+                                    }
+                                })
                                 .catch((error) => {
                                     alert(error);
                                 });
